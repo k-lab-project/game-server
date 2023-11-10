@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Repository
@@ -29,8 +30,16 @@ public class SubjectRepository {
         return subject;
     }
 
-    // 해당 과목 삭제
-
+    // 해당 과목 삭제, 한국어 이름으로 제거
+    public void delete(Long id){
+        Subject subject = em.find(Subject.class, id);
+        if (subject != null) {
+            // 엔티티 삭제
+            em.remove(subject);
+        } else {
+            throw new EntityNotFoundException("Subject not found with ID: " + id);
+        }
+    }
 
 
 }
