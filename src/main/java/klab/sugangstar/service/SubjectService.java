@@ -47,4 +47,9 @@ public class SubjectService {
         return response;
     }
 
+    @Transactional
+    public void deleteById(Long id){
+        subjectRepository.delete(id);
+    }
+
 }
