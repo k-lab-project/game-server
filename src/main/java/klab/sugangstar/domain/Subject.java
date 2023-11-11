@@ -26,9 +26,6 @@ public class Subject {
     private String star;
     private String professor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "character_id")
-    private Character character;
 
     // 생성 메서드
     public static Subject setSubject(String class_name,String credit,String korea_name, String english_name,
