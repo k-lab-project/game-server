@@ -13,7 +13,7 @@ public class UserRepository {
 
     // 저장
     public void save(User user){
-
+        em.persist(user);
     }
 
     // 삭제

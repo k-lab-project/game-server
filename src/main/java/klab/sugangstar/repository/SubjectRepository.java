@@ -20,13 +20,18 @@ public class SubjectRepository {
         em.persist(subject);
     }
 
-    // 과목 정보 가져오기
+    // 과목 정보 랜덤 가져오기
     public List<SubjectProvideDto> findRandomSubjects(String name){
         List<SubjectProvideDto> subject = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
                         "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
                 .setParameter("class_name",name)
                 .setMaxResults(10)
                 .getResultList();
+        return subject;
+    }
+    // 아이디로 해당 과목만 가져오기
+    public Subject findById(Long id){
+        Subject subject = em.find(Subject.class,id);
         return subject;
     }
 
