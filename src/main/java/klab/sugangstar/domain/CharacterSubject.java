@@ -15,9 +15,11 @@ public class CharacterSubject {
     @Column(name = "character_subject_id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="character_id")
     private Character character;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="subject_id")

@@ -1,5 +1,6 @@
 package klab.sugangstar.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY,mappedBy = "user")
     private Character character;
 

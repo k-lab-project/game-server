@@ -3,6 +3,7 @@ package klab.sugangstar.service;
 import klab.sugangstar.domain.*;
 import klab.sugangstar.domain.Character;
 import klab.sugangstar.dto.CharacterCreateDto;
+import klab.sugangstar.dto.CharacterProvideDto;
 import klab.sugangstar.dto.CharacterUpdateDto;
 import klab.sugangstar.repository.CharacterRepository;
 import klab.sugangstar.repository.SubjectRepository;
@@ -64,4 +65,18 @@ public class CharacterService {
     }
 
     // 캐릭터 조회
+    public CharacterProvideDto provideCharacter(Long id){
+        Character character = characterRepository.findById(id);
+        CharacterProvideDto characterProvideDto = new CharacterProvideDto(character.getId(),character.getWeek(),character.getStamina()
+        ,character.getCondition(),character.getDebuff(),character.getStatus(),character.getCharacterSubjects());
+        return characterProvideDto;
+    }
+
+    // 캐릭터 삭제
+    @Transactional
+    public void deleteCharacter(Long id){
+        characterRepository.deleteById(id);
+    }
+
+
 }

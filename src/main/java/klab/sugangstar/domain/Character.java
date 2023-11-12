@@ -36,7 +36,7 @@ public class Character {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "character",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "character",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     List<CharacterSubject> characterSubjects = new ArrayList<>();
 
     // 연관 관계 메서드

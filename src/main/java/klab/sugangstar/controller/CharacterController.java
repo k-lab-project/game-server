@@ -2,13 +2,11 @@ package klab.sugangstar.controller;
 
 import klab.sugangstar.domain.Character;
 import klab.sugangstar.dto.CharacterCreateDto;
+import klab.sugangstar.dto.CharacterProvideDto;
 import klab.sugangstar.dto.CharacterUpdateDto;
 import klab.sugangstar.service.CharacterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,4 +28,18 @@ public class CharacterController {
         characterService.updateCharacter(characterUpdateDto);
     }
 
+    // 캐릭터 정보 제공
+    @GetMapping("/character/{id}")
+    public CharacterProvideDto provideCharacter(@PathVariable Long id){
+        CharacterProvideDto character = characterService.provideCharacter(id);
+        System.out.println("character = " + character);
+        return character;
+    }
+
+    // 캐릭터 삭제
+    @DeleteMapping("/delete-character/{id}")
+    public Long deleteCharacter(@PathVariable Long id){
+        characterService.deleteCharacter(id);
+        return id;
+    }
 }
