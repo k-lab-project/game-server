@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class Subject {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subject_id")
     private Long id;
 

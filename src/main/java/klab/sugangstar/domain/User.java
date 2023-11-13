@@ -12,13 +12,13 @@ import javax.persistence.*;
 @Setter
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY,mappedBy = "user")
-    private Character character;
+    private GameCharacter gameCharacter;
 
     private String login_id;
     private String login_password;

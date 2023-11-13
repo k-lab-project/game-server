@@ -7,7 +7,7 @@ public class CharacterUpdateDto {
     private Long characterId;
     private int week;
     private int stamina;
-    private int condition;
+    private int health;
     private String debuff1;
     private String debuff2;
     private String debuff3;

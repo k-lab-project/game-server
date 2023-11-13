@@ -1,6 +1,5 @@
 package klab.sugangstar.controller;
 
-import klab.sugangstar.domain.Character;
 import klab.sugangstar.dto.CharacterCreateDto;
 import klab.sugangstar.dto.CharacterProvideDto;
 import klab.sugangstar.dto.CharacterUpdateDto;

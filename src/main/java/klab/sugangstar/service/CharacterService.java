@@ -1,7 +1,7 @@
 package klab.sugangstar.service;
 
 import klab.sugangstar.domain.*;
-import klab.sugangstar.domain.Character;
+import klab.sugangstar.domain.GameCharacter;
 import klab.sugangstar.dto.CharacterCreateDto;
 import klab.sugangstar.dto.CharacterProvideDto;
 import klab.sugangstar.dto.CharacterUpdateDto;
@@ -49,26 +49,26 @@ public class CharacterService {
 
         // 캐릭터 생성
         // 캐릭터 생성함수로 캐릭터 생성하고
-        Character character = Character.createCharacter(user,characterCreateDto.getWeek()
-                ,characterCreateDto.getStamina(),characterCreateDto.getCondition(),debuff
+        GameCharacter gameCharacter = GameCharacter.createCharacter(user,characterCreateDto.getWeek()
+                ,characterCreateDto.getStamina(),characterCreateDto.getHealth(),debuff
                 ,status,characterSubjects);
 
         // 캐릭터 저장
-        characterRepository.save(character);
+        characterRepository.save(gameCharacter);
     }
 
     // 캐릭터 업데이트
     @Transactional
     public void updateCharacter(CharacterUpdateDto characterUpdateDto){
-        Character character = characterRepository.findById(characterUpdateDto.getCharacterId());
-        character.updateCharacter(characterUpdateDto);
+        GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto.getCharacterId());
+        gameCharacter.updateCharacter(characterUpdateDto);
     }
 
     // 캐릭터 조회
     public CharacterProvideDto provideCharacter(Long id){
-        Character character = characterRepository.findById(id);
-        CharacterProvideDto characterProvideDto = new CharacterProvideDto(character.getId(),character.getWeek(),character.getStamina()
-        ,character.getCondition(),character.getDebuff(),character.getStatus(),character.getCharacterSubjects());
+        GameCharacter gameCharacter = characterRepository.findById(id);
+        CharacterProvideDto characterProvideDto = new CharacterProvideDto(gameCharacter.getId(), gameCharacter.getWeek(), gameCharacter.getStamina()
+        , gameCharacter.getHealth(), gameCharacter.getDebuff(), gameCharacter.getStatus(), gameCharacter.getCharacterSubjects());
         return characterProvideDto;
     }
 
