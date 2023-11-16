@@ -2,9 +2,7 @@ package klab.sugangstar.service;
 
 import klab.sugangstar.domain.*;
 import klab.sugangstar.domain.GameCharacter;
-import klab.sugangstar.dto.CharacterCreateDto;
-import klab.sugangstar.dto.CharacterProvideDto;
-import klab.sugangstar.dto.CharacterUpdateDto;
+import klab.sugangstar.dto.characterDTO.*;
 import klab.sugangstar.repository.CharacterRepository;
 import klab.sugangstar.repository.SubjectRepository;
 import klab.sugangstar.repository.UserRepository;
@@ -29,46 +27,62 @@ public class CharacterService {
         // 엔티티 조회
         // userId 조회
         User user = userRepository.findOne(characterCreateDto.getUserId());
-        // 아마 이걸 개수만큼 해야할듯
-        // 과목 생성
-        // characterSubject에 과목들 넣어두고
-        // addCharacterSubject로 넣어
-        List<CharacterSubject> characterSubjects = new ArrayList<>();
-        for (Long subjectId : characterCreateDto.getSubjectIds()) {
-            Subject subject = subjectRepository.findById(subjectId);
-            CharacterSubject characterSubject = CharacterSubject.createCharacterSubject(subject);
-            characterSubjects.add(characterSubject);
-        }
+
 
         // 디버프 세팅
         Debuff debuff = new Debuff(characterCreateDto.getDebuff1(),characterCreateDto.getDebuff2(),characterCreateDto.getDebuff3());
 
-        // 스테이터스 세팅
-        Status status = new Status(characterCreateDto.getMemorization(),characterCreateDto.getConcentration(),characterCreateDto.getPatience(),
-                characterCreateDto.getCreativity(),characterCreateDto.getMetacognition(),characterCreateDto.getUnderstanding());
+        Status status = Status.createStatus(characterCreateDto.getMemorization(),characterCreateDto.getConcentration(),characterCreateDto.getPatience(),
+                characterCreateDto.getCreativity(),characterCreateDto.getMetacognition(),characterCreateDto.getUnderstanding(),characterCreateDto.getSemester());
 
-        // 캐릭터 생성
-        // 캐릭터 생성함수로 캐릭터 생성하고
-        GameCharacter gameCharacter = GameCharacter.createCharacter(user,characterCreateDto.getWeek()
-                ,characterCreateDto.getStamina(),characterCreateDto.getHealth(),debuff
-                ,status,characterSubjects);
+
+        List<CharacterSubject> characterSubjects = new ArrayList<>();
+        for (Long subjectId : characterCreateDto.getSubjectIds()) {
+            Subject subject = subjectRepository.findById(subjectId);
+            CharacterSubject characterSubject = CharacterSubject.createCharacterSubject(subject,characterCreateDto.getSemester());
+            characterSubjects.add(characterSubject);
+        }
+
+
+        GameCharacter gameCharacter = GameCharacter.createCharacter(user, characterCreateDto.getWeek(),
+                characterCreateDto.getStamina(), characterCreateDto.getHealth(), debuff, characterCreateDto.getSemester(),
+                characterSubjects);
+
+        gameCharacter.addStatus(status);
+        // 스테이터스 세팅
+
 
         // 캐릭터 저장
         characterRepository.save(gameCharacter);
     }
 
-    // 캐릭터 업데이트
+    // 캐릭터 업데이트, 학기 중 업데이트, week
     @Transactional
     public void updateCharacter(CharacterUpdateDto characterUpdateDto){
         GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto.getCharacterId());
         gameCharacter.updateCharacter(characterUpdateDto);
     }
 
+    // 캐릭터 업데이트, 학기 종료 시, 시험 종료 시
+    @Transactional
+    public void updateCharacter2(CharacterUpdateDto2 characterUpdateDto2){
+        GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto2.getCharacterId());
+        gameCharacter.updateCharacter2(characterUpdateDto2);
+    }
+
+    //캐릭터 업데이트. 새 학기 시작
+    @Transactional
+    public void updateCharacter3(CharacterCreateDto3 characterUpdateDto3){
+        GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto3.getCharacterId());
+        gameCharacter.updateCharacter3(characterUpdateDto3);
+    }
+
+
     // 캐릭터 조회
     public CharacterProvideDto provideCharacter(Long id){
         GameCharacter gameCharacter = characterRepository.findById(id);
         CharacterProvideDto characterProvideDto = new CharacterProvideDto(gameCharacter.getId(), gameCharacter.getWeek(), gameCharacter.getStamina()
-        , gameCharacter.getHealth(), gameCharacter.getDebuff(), gameCharacter.getStatus(), gameCharacter.getCharacterSubjects());
+        , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getDebuff(), gameCharacter.getStatus().get(gameCharacter.getSemester()-1), gameCharacter.getCharacterSubjects());
         return characterProvideDto;
     }
 

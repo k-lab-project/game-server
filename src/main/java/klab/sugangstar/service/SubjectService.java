@@ -23,7 +23,8 @@ public class SubjectService {
         // validation 해야함, 지금은 보류, 여기서 모든 값들이 not empty이기에 그것에 대해 처리해야함.
         Subject subject1 = Subject.setSubject(subject.getClass_name(),subject.getCredit(),
                 subject.getKorea_name(),subject.getEnglish_name(),subject.getPopularity(),
-                subject.getSchedule_day(),subject.getSchedule_time(),subject.getStar(), subject.getProfessor());
+                subject.getSchedule_day(),subject.getSchedule_time(),subject.getStar(), subject.getProfessor(),
+                subject.getStatus1(),subject.getStatus2());
         subjectRepository.save(subject1);
     }
     // 과목 정보 가져오기
