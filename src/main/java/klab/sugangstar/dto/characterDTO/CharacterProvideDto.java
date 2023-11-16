@@ -16,6 +16,7 @@ public class CharacterProvideDto {
     private int week;
     private int stamina;
     private int health;
+    private int semester;
     private Debuff debuff;
     private Status status;
     private List<CharacterSubject> subjects;

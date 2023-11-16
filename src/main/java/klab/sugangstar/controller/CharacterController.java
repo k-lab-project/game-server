@@ -1,8 +1,6 @@
 package klab.sugangstar.controller;
 
-import klab.sugangstar.dto.CharacterCreateDto;
-import klab.sugangstar.dto.CharacterProvideDto;
-import klab.sugangstar.dto.CharacterUpdateDto;
+import klab.sugangstar.dto.characterDTO.*;
 import klab.sugangstar.service.CharacterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +23,18 @@ public class CharacterController {
     @PutMapping("/update-character")
     public void updateCharacter(@RequestBody @Valid CharacterUpdateDto characterUpdateDto){
         characterService.updateCharacter(characterUpdateDto);
+    }
+
+    // 캐릭터 업데이트2, 시험 종료 시점
+    @PutMapping("/update-character2")
+    public void updateCharacter2(@RequestBody @Valid CharacterUpdateDto2 characterUpdateDto2){
+        characterService.updateCharacter2(characterUpdateDto2);
+    }
+
+    //캐릭터 업데이트. 새 학기 시작
+    @PutMapping("/create-character2")
+    public void updateCharacter3(@RequestBody @Valid CharacterCreateDto3 characterUpdateDto3){
+        characterService.updateCharacter3(characterUpdateDto3);
     }
 
     // 캐릭터 정보 제공
