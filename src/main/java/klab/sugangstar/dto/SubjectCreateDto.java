@@ -14,5 +14,7 @@ public class SubjectCreateDto {
     private String schedule_time;
     private String star;
     private String professor;
+    private String status1;
+    private String status2;
 
 }
