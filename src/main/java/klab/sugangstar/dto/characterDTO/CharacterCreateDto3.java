@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CharacterUpdateDto3 {
+public class CharacterCreateDto3 {
     private Long characterId;
     private int memorization;
     private int concentration;

@@ -1,4 +1,4 @@
-package klab.sugangstar.dto;
+package klab.sugangstar.dto.characterDTO;
 
 import lombok.Data;
 

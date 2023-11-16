@@ -1,4 +1,4 @@
-package klab.sugangstar.dto;
+package klab.sugangstar.dto.characterDTO;
 
 import klab.sugangstar.domain.CharacterSubject;
 import klab.sugangstar.domain.Debuff;
