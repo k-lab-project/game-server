@@ -15,8 +15,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create-user")
-    public User saveUser(@RequestBody @Valid User user){
+    public void saveUser(@RequestBody @Valid User user){
         userService.createUser(user);
-        return user;
+        //return user;
     }
 }

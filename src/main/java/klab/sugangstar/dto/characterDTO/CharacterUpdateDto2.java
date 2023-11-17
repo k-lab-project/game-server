@@ -10,7 +10,6 @@ public class CharacterUpdateDto2 {
     private int week;
     private int stamina;
     private int health;
-    private List<Integer> score;
     private int total_score;
     private String debuff1;
     private String debuff2;

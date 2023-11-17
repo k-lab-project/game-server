@@ -19,7 +19,7 @@ public class CharacterController {
         //return character;
     }
 
-    // 캐릭터 업데이트
+    // 캐릭터 주차별 업데이트
     @PutMapping("/update-character")
     public void updateCharacter(@RequestBody @Valid CharacterUpdateDto characterUpdateDto){
         characterService.updateCharacter(characterUpdateDto);
@@ -32,7 +32,7 @@ public class CharacterController {
     }
 
     //캐릭터 업데이트. 새 학기 시작
-    @PutMapping("/create-character2")
+    @PutMapping("/create-character3")
     public void updateCharacter3(@RequestBody @Valid CharacterCreateDto3 characterUpdateDto3){
         characterService.updateCharacter3(characterUpdateDto3);
     }

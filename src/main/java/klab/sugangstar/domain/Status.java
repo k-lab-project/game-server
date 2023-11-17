@@ -28,14 +28,6 @@ public class Status {
     @JoinColumn(name="character_id")
     private GameCharacter gameCharacter;
 
-//    public Status(int memorization, int concentration, int patience, int creativity, int metacognition, int understanding) {
-//        this.memorization = memorization;
-//        this.concentration = concentration;
-//        this.patience = patience;
-//        this.creativity = creativity;
-//        this.metacognition = metacognition;
-//        this.understanding = understanding;
-//    }
     public static Status createStatus(int memorization,int concentration, int patience,
                                       int creativity,int metacognition, int understanding, int semester) {
         Status status = new Status();

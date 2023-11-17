@@ -30,7 +30,7 @@ public class CharacterService {
 
 
         // 디버프 세팅
-        Debuff debuff = new Debuff(characterCreateDto.getDebuff1(),characterCreateDto.getDebuff2(),characterCreateDto.getDebuff3());
+        Debuff debuff = new Debuff("","","");
 
         Status status = Status.createStatus(characterCreateDto.getMemorization(),characterCreateDto.getConcentration(),characterCreateDto.getPatience(),
                 characterCreateDto.getCreativity(),characterCreateDto.getMetacognition(),characterCreateDto.getUnderstanding(),characterCreateDto.getSemester());
@@ -44,8 +44,8 @@ public class CharacterService {
         }
 
 
-        GameCharacter gameCharacter = GameCharacter.createCharacter(user, characterCreateDto.getWeek(),
-                characterCreateDto.getStamina(), characterCreateDto.getHealth(), debuff, characterCreateDto.getSemester(),
+        GameCharacter gameCharacter = GameCharacter.createCharacter(user, 1,
+                100, 4, debuff, 1,characterCreateDto.getNickName(),
                 characterSubjects);
 
         gameCharacter.addStatus(status);
@@ -82,7 +82,8 @@ public class CharacterService {
     public CharacterProvideDto provideCharacter(Long id){
         GameCharacter gameCharacter = characterRepository.findById(id);
         CharacterProvideDto characterProvideDto = new CharacterProvideDto(gameCharacter.getId(), gameCharacter.getWeek(), gameCharacter.getStamina()
-        , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getDebuff(), gameCharacter.getStatus().get(gameCharacter.getSemester()-1), gameCharacter.getCharacterSubjects());
+        , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getTotal_score(),gameCharacter.getNickName(),gameCharacter.getDebuff()
+                , gameCharacter.getStatus().get(gameCharacter.getSemester()-1), gameCharacter.getCharacterSubjects());
         return characterProvideDto;
     }
 

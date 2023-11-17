@@ -16,13 +16,9 @@ import java.util.List;
 public class SubjectController {
     private final SubjectService subjectService;
 
-    @PostMapping("/subject")
-    public List<String> saveSubject(@RequestBody @Valid SubjectCreateDto request){
+    @PostMapping("/create-subject")
+    public void saveSubject(@RequestBody @Valid SubjectCreateDto request){
         subjectService.createSubject(request);
-        List<String> s = new ArrayList<>();
-        s.add(request.getClass_name());
-        s.add(request.getEnglish_name());
-        return s;
     }
 
     @GetMapping("/")
@@ -32,9 +28,9 @@ public class SubjectController {
     }
 
     @DeleteMapping("/delete-subject/{id}")
-    public String deleteSubject(@PathVariable Long id){
+    public void deleteSubject(@PathVariable Long id){
         subjectService.deleteById(id);
-        return id+"가 정상적으로 삭제 되었습니다.";
+        //return id+"가 정상적으로 삭제 되었습니다.";
     }
 
 }

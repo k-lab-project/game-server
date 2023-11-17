@@ -25,7 +25,7 @@ public class SubjectRepository {
         List<SubjectProvideDto> subject = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
                         "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
                 .setParameter("class_name",name)
-                .setMaxResults(10)
+                .setMaxResults(30)
                 .getResultList();
         return subject;
     }
