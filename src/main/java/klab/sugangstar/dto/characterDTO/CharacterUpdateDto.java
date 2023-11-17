@@ -8,9 +8,9 @@ public class CharacterUpdateDto {
     private int week;
     private int stamina;
     private int health;
-    private String debuff1;
-    private String debuff2;
-    private String debuff3;
+    private int debuff1;
+    private int debuff2;
+    private int debuff3;
     private int memorization;
     private int concentration;
     private int patience;

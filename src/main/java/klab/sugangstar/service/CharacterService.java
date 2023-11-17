@@ -30,7 +30,7 @@ public class CharacterService {
 
 
         // 디버프 세팅
-        Debuff debuff = new Debuff("","","");
+        Debuff debuff = new Debuff(0,0,0);
 
         Status status = Status.createStatus(characterCreateDto.getMemorization(),characterCreateDto.getConcentration(),characterCreateDto.getPatience(),
                 characterCreateDto.getCreativity(),characterCreateDto.getMetacognition(),characterCreateDto.getUnderstanding(),characterCreateDto.getSemester());
