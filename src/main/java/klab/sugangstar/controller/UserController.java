@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,5 +19,10 @@ public class UserController {
     public void saveUser(@RequestBody @Valid User user){
         userService.createUser(user);
         //return user;
+    }
+
+    @PostMapping("/check-user")
+    public Map<String, Long> checkUser(@RequestBody @Valid User user){
+        return userService.checkUser(user);
     }
 }

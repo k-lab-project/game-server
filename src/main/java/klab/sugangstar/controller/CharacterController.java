@@ -15,6 +15,7 @@ public class CharacterController {
     // 캐릭터 생성
     @PostMapping("/create-character")
     public void saveCharacter(@RequestBody @Valid CharacterCreateDto characterCreateDto){
+        // 또 요청하면 아예 오류 뜨게 해서 validation 처리
         characterService.createCharacter(characterCreateDto);
         //return character;
     }
