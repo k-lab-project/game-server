@@ -74,16 +74,29 @@ public class CharacterService {
     @Transactional
     public void updateCharacter3(CharacterCreateDto3 characterUpdateDto3){
         GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto3.getCharacterId());
-        gameCharacter.updateCharacter3(characterUpdateDto3);
+        List<CharacterSubject> characterSubjects = new ArrayList<>();
+        for (Long subjectId : characterUpdateDto3.getSubjectIds()) {
+            Subject subject = subjectRepository.findById(subjectId);
+            CharacterSubject characterSubject = CharacterSubject.createCharacterSubject(subject,2);
+            characterSubjects.add(characterSubject);
+        }
+        gameCharacter.updateCharacter3(characterUpdateDto3,characterSubjects);
     }
 
 
     // 캐릭터 조회
     public CharacterProvideDto provideCharacter(Long id){
         GameCharacter gameCharacter = characterRepository.findById(id);
+        List<CharacterSubject> subjects = new ArrayList<>();
+        for (CharacterSubject characterSubject : gameCharacter.getCharacterSubjects()) {
+            if(gameCharacter.getSemester() == characterSubject.getSemester()){
+                subjects.add(characterSubject);
+            }
+
+        }
         CharacterProvideDto characterProvideDto = new CharacterProvideDto(gameCharacter.getId(), gameCharacter.getWeek(), gameCharacter.getStamina()
         , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getTotal_score(),gameCharacter.getNickName(),gameCharacter.getDebuff()
-                , gameCharacter.getStatus().get(gameCharacter.getSemester()-1), gameCharacter.getCharacterSubjects());
+                , gameCharacter.getStatus().get(gameCharacter.getSemester()-1), subjects);
         return characterProvideDto;
     }
 

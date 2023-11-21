@@ -29,7 +29,7 @@ public class SubjectService {
     }
     // 과목 정보 가져오기
     public List<List<String>> findRandom(){
-        List<SubjectProvideDto> s = subjectRepository.findRandomSubjects("M");
+        List<SubjectProvideDto> s = subjectRepository.findRandomSubjects();
         List<List<String>> response = new ArrayList<>();
         for (SubjectProvideDto subjectProvideDto : s) {
             List<String> subjectData = new ArrayList<>();
