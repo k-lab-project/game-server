@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,6 +32,17 @@ public class CharacterRepository {
     public void deleteById(Long id){
         GameCharacter gameCharacter = em.find(GameCharacter.class,id);
         em.remove(gameCharacter);
+    }
+    public Long findByUserId(Long id){
+        Long result = 0L;
+        List<Long> count = em.createQuery("SELECT c.id FROM GameCharacter c " +
+                "WHERE c.user.id = :userId",Long.class)
+                .setParameter("userId",id)
+                .getResultList();
+        if (!count.isEmpty()) {
+            result = count.get(0);
+        }
+        return result;
     }
 
     // 캐릭터 업데이트, 이건 서비스 단에서 데이터 찾고 영속성 컨텍스트에서
