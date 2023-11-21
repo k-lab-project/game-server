@@ -18,7 +18,7 @@ public class Subject {
     @Column(name = "subject_id")
     private Long id;
 
-    private String class_name;
+    private String class_name; // M, G, N
     private String credit;
     private String korea_name;
     private String english_name;

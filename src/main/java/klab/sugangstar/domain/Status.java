@@ -16,20 +16,20 @@ public class Status {
     @Column(name = "status_id")
     private Long id;
 
-    private int memorization;
-    private int concentration;
-    private int patience;
-    private int creativity;
-    private int metacognition;
-    private int understanding;
-    private int semester;
+    private float memorization;
+    private float concentration;
+    private float patience;
+    private float creativity;
+    private float metacognition;
+    private float understanding;
+    private float semester;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="character_id")
     private GameCharacter gameCharacter;
 
-    public static Status createStatus(int memorization,int concentration, int patience,
-                                      int creativity,int metacognition, int understanding, int semester) {
+    public static Status createStatus(float memorization,float concentration, float patience,
+                                      float creativity,float metacognition, float understanding, int semester) {
         Status status = new Status();
         status.setMemorization(memorization);
         status.setCreativity(creativity);

@@ -23,7 +23,7 @@ public class CharacterSubject {
     private GameCharacter gameCharacter;
 
     private int semester;
-    private int score;
+    private float score;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

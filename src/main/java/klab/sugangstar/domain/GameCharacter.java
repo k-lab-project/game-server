@@ -33,7 +33,7 @@ public class GameCharacter {
     private int semester;
     private String nickName;
 
-    private int total_score;
+    private float total_score;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -95,6 +95,7 @@ public class GameCharacter {
         this.setWeek(characterUpdateDto2.getWeek());
         this.setStamina(characterUpdateDto2.getStamina());
         this.setHealth(characterUpdateDto2.getHealth());
+        this.setTotal_score(characterUpdateDto2.getTotal_score());
         this.setDebuff(new Debuff(characterUpdateDto2.getDebuff1(),characterUpdateDto2.getDebuff2(), characterUpdateDto2.getDebuff3()));
 
         Status semesterStatus = this.status.get(this.semester - 1);
@@ -104,10 +105,34 @@ public class GameCharacter {
         semesterStatus.setMetacognition(characterUpdateDto2.getMetacognition());
         semesterStatus.setPatience(characterUpdateDto2.getPatience());
         semesterStatus.setCreativity(characterUpdateDto2.getCreativity());
+
+        List<CharacterSubject> characterSubjects1 = this.characterSubjects;
+        int i=0;
+        for (CharacterSubject characterSubject : characterSubjects1) {
+            if(characterSubject.getSemester() == this.getSemester()){
+                characterSubject.setScore(characterUpdateDto2.getSubjectScore().get(i));
+                i++;
+            }
+        }
     }
 
-    public void updateCharacter3(CharacterCreateDto3 characterUpdateDto3){
-
+    public void updateCharacter3(CharacterCreateDto3 characterUpdateDto3,List<CharacterSubject> characterSubjects){
+        this.setSemester(2);
+        Status semesterStatus = this.status.get(this.semester - 1);
+        semesterStatus.setMemorization(characterUpdateDto3.getMemorization());
+        semesterStatus.setConcentration(characterUpdateDto3.getConcentration());
+        semesterStatus.setUnderstanding(characterUpdateDto3.getUnderstanding());
+        semesterStatus.setMetacognition(characterUpdateDto3.getMetacognition());
+        semesterStatus.setPatience(characterUpdateDto3.getPatience());
+        semesterStatus.setCreativity(characterUpdateDto3.getCreativity());
+        for (CharacterSubject characterSubject : characterSubjects) {
+            this.addCharacterSubject(characterSubject);
+        }
+        this.setDebuff(new Debuff(0,0,0));
+        this.setStamina(100);
+        this.setHealth(4);
+        this.setWeek(1);
+        this.setTotal_score(0);
     }
 
 }
