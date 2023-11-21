@@ -17,7 +17,7 @@ public class CharacterProvideDto {
     private int stamina;
     private int health;
     private int semester;
-    private int total_score;
+    private float total_score;
     private String nickName;
     private Debuff debuff;
     private Status status;

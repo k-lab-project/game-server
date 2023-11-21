@@ -11,10 +11,10 @@ public class CharacterUpdateDto {
     private int debuff1;
     private int debuff2;
     private int debuff3;
-    private int memorization;
-    private int concentration;
-    private int patience;
-    private int creativity;
-    private int metacognition;
-    private int understanding;
+    private float memorization;
+    private float concentration;
+    private float patience;
+    private float creativity;
+    private float metacognition;
+    private float understanding;
 }
