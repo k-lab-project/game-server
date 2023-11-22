@@ -33,9 +33,7 @@ public class UserService {
             return result;
         }
         else{
-            Long id = userRepository.save(user);
-            result.put("character",message);
-            result.put("userId",id);
+            result.put("없는 회원입니다.",message);
             return result;
         }
     }
