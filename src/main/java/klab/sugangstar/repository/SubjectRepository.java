@@ -24,17 +24,17 @@ public class SubjectRepository {
     // 과목 정보 랜덤 가져오기
     public List<SubjectProvideDto> findRandomSubjects(){
         List<SubjectProvideDto> subject = new ArrayList<>();
-        List<SubjectProvideDto> subject1 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
+        List<SubjectProvideDto> subject1 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
                         "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
                 .setParameter("class_name","M")
                 .setMaxResults(14)
                 .getResultList();
-        List<SubjectProvideDto> subject2 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
+        List<SubjectProvideDto> subject2 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
                         "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
                 .setParameter("class_name","G")
                 .setMaxResults(14)
                 .getResultList();
-        List<SubjectProvideDto> subject3 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
+        List<SubjectProvideDto> subject3 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
                         "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
                 .setParameter("class_name","N")
                 .setMaxResults(2)

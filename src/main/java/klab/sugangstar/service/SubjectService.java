@@ -33,6 +33,7 @@ public class SubjectService {
         List<List<String>> response = new ArrayList<>();
         for (SubjectProvideDto subjectProvideDto : s) {
             List<String> subjectData = new ArrayList<>();
+            subjectData.add(String.valueOf(subjectProvideDto.getId()));
             subjectData.add(subjectProvideDto.getClass_name());
             subjectData.add(subjectProvideDto.getCredit());
             subjectData.add(subjectProvideDto.getKorea_name());
