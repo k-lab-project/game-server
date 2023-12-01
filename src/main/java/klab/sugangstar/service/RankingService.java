@@ -61,7 +61,6 @@ public class RankingService {
             characterRankSqlRepository.save(c);
 
         }
-        System.out.println("test");
     }
 
 }

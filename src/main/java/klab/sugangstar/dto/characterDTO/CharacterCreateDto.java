@@ -8,6 +8,7 @@ import java.util.List;
 public class CharacterCreateDto {
     private Long userId;
     private String nickName;
+    private String gender;
     private float memorization;
     private float concentration;
     private float patience;

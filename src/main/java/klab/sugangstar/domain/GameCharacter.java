@@ -32,6 +32,7 @@ public class GameCharacter {
     private int health;
     private int semester;
     private String nickName;
+    private String gender;
 
     private float total_score;
 
@@ -52,7 +53,7 @@ public class GameCharacter {
 
     // 생성 메서드
     public static GameCharacter createCharacter(User user, int week, int stamina,
-                                                int health, Debuff debuff, int semester,String nickName,
+                                                int health, Debuff debuff, int semester,String nickName, String gender,
                                                 List<CharacterSubject> characterSubjects){
         GameCharacter gameCharacter = new GameCharacter();
         gameCharacter.setUser(user);
@@ -64,6 +65,7 @@ public class GameCharacter {
         gameCharacter.setStamina(stamina);
         gameCharacter.setHealth(health);
         gameCharacter.setWeek(week);
+        gameCharacter.setGender(gender);
         gameCharacter.setSemester(semester);
         gameCharacter.setTotal_score(0);
 

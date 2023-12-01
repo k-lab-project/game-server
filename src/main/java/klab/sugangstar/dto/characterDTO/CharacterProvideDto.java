@@ -19,6 +19,7 @@ public class CharacterProvideDto {
     private int semester;
     private float total_score;
     private String nickName;
+    private String gender;
     private Debuff debuff;
     private Status status;
     private List<CharacterSubject> subjects;

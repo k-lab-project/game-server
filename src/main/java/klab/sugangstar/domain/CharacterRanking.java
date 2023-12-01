@@ -19,6 +19,7 @@ public class CharacterRanking {
     private Double totalScore;
     private Double totalGrade;
     private String nickname;
+    private String gender;
     private List<Float> grade1;
     private List<Float> grade2;
     private List<Float> status1;

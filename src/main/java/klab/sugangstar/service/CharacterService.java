@@ -45,7 +45,7 @@ public class CharacterService {
 
 
         GameCharacter gameCharacter = GameCharacter.createCharacter(user, 1,
-                100, 4, debuff, 1,characterCreateDto.getNickName(),
+                100, 4, debuff, 1,characterCreateDto.getNickName(),characterCreateDto.getGender(),
                 characterSubjects);
 
         gameCharacter.addStatus(status);
@@ -95,7 +95,7 @@ public class CharacterService {
 
         }
         CharacterProvideDto characterProvideDto = new CharacterProvideDto(gameCharacter.getId(), gameCharacter.getWeek(), gameCharacter.getStamina()
-        , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getTotal_score(),gameCharacter.getNickName(),gameCharacter.getDebuff()
+        , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getTotal_score(),gameCharacter.getNickName(),gameCharacter.getGender(),gameCharacter.getDebuff()
                 , gameCharacter.getStatus().get(gameCharacter.getSemester()-1), subjects);
         return characterProvideDto;
     }
