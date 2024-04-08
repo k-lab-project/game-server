@@ -3,8 +3,7 @@ package klab.sugangstar.domain;
 import klab.sugangstar.dto.characterDTO.CharacterUpdateDto;
 import klab.sugangstar.dto.characterDTO.CharacterUpdateDto2;
 import klab.sugangstar.dto.characterDTO.CharacterCreateDto3;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,8 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name="gameCharacter")
-@Getter
-@Setter
+@Data
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GameCharacter {
     @Id
