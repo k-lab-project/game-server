@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,24 +31,20 @@ public class SubjectService {
     }
     // 과목 정보 가져오기
     public List<List<String>> findRandom(){
-        List<SubjectProvideDto> s = subjectRepository.findRandomSubjects();
-        List<List<String>> response = new ArrayList<>();
-        for (SubjectProvideDto subjectProvideDto : s) {
-            List<String> subjectData = new ArrayList<>();
-            subjectData.add(String.valueOf(subjectProvideDto.getId()));
-            subjectData.add(subjectProvideDto.getClass_name());
-            subjectData.add(subjectProvideDto.getCredit());
-            subjectData.add(subjectProvideDto.getKorea_name());
-            subjectData.add(subjectProvideDto.getEnglish_name());
-            subjectData.add(subjectProvideDto.getPopularity());
-            subjectData.add(subjectProvideDto.getSchedule_day());
-            subjectData.add(subjectProvideDto.getSchedule_time());
-            subjectData.add(subjectProvideDto.getStar());
-            subjectData.add(subjectProvideDto.getProfessor());
-
-            response.add(subjectData);
-        }
-        return response;
+        List<SubjectProvideDto> subjects = subjectRepository.findRandomSubjects();
+        return subjects.stream()
+                .map(subject -> Arrays.asList(
+                        String.valueOf(subject.getId()),
+                        subject.getClass_name(),
+                        subject.getCredit(),
+                        subject.getKorea_name(),
+                        subject.getEnglish_name(),
+                        subject.getPopularity(),
+                        subject.getSchedule_day(),
+                        subject.getSchedule_time(),
+                        subject.getStar(),
+                        subject.getProfessor()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
