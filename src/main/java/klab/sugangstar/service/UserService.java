@@ -32,9 +32,7 @@ public class UserService {
             result.put("userId",id);
             return result;
         }
-        else{
-            result.put("없는 회원입니다.",message);
-            return result;
-        }
+        result.put("없는 회원입니다.",message);
+        return result;
     }
 }
