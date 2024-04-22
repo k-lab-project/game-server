@@ -56,23 +56,23 @@ public class CharacterService {
         characterRepository.save(gameCharacter);
     }
 
-    // 캐릭터 업데이트, 학기 중 업데이트, week
+    // 캐릭터 업데이트, 학기 중 업데이트, week , updateWeekly
     @Transactional
-    public void updateCharacter(CharacterUpdateDto characterUpdateDto){
+    public void updateWeekly(CharacterUpdateDto characterUpdateDto){
         GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto.getCharacterId());
         gameCharacter.updateCharacter(characterUpdateDto);
     }
 
-    // 캐릭터 업데이트, 학기 종료 시, 시험 종료 시
+    // 캐릭터 업데이트, 학기 종료 시, 시험 종료 시 updateAfterSemesterEnd
     @Transactional
-    public void updateCharacter2(CharacterUpdateDto2 characterUpdateDto2){
+    public void updateAfterSemesterEnd(CharacterUpdateDto2 characterUpdateDto2){
         GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto2.getCharacterId());
         gameCharacter.updateCharacter2(characterUpdateDto2);
     }
 
-    //캐릭터 업데이트. 새 학기 시작
+    //캐릭터 업데이트. 새 학기 시작 updateAtSemesterStart
     @Transactional
-    public void updateCharacter3(CharacterCreateDto3 characterUpdateDto3){
+    public void updateAtSemesterStart(CharacterCreateDto3 characterUpdateDto3){
         GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto3.getCharacterId());
         List<CharacterSubject> characterSubjects = new ArrayList<>();
         for (Long subjectId : characterUpdateDto3.getSubjectIds()) {

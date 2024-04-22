@@ -28,7 +28,7 @@ public class RankingService {
     }
 
     public void updateRanking(CharacterRanking characterRanking){
-        rabbitTemplate.convertAndSend("ranking.exchange","ranking.key",characterRanking);
+//        rabbitTemplate.convertAndSend("ranking.exchange","ranking.key",characterRanking);
         //characterRankRepository.deleteAll();
     }
 
@@ -43,24 +43,24 @@ public class RankingService {
     }
 
     //  mysql 영속적으로 스케줄링하여 저장(현재는 1분 단위로 저장)
-    @Transactional
-    @Scheduled(fixedRate = 60000)
-    public void updateRankingDataInMySQL() {
-        // Redis에서 랭킹 데이터를 읽어옴
-        List<CharacterRanking> redisRankingDataList = getTop100Ranks();
-
-        // MySQL에서 데이터를 전부 삭제
-        characterRankSqlRepository.deleteAll();
-
-        // Mysql에 다시 데이터 추가
-        for (CharacterRanking characterRanking : redisRankingDataList) {
-            CharacterRankingSql c = new CharacterRankingSql();
-            c.setNickname(characterRanking.getNickname());
-            c.setTotalScore(characterRanking.getTotalScore());
-            c.setTotalGrade(characterRanking.getTotalGrade());
-            characterRankSqlRepository.save(c);
-
-        }
-    }
+//    @Transactional
+//    @Scheduled(fixedRate = 60000)
+//    public void updateRankingDataInMySQL() {
+//        // Redis에서 랭킹 데이터를 읽어옴
+//        List<CharacterRanking> redisRankingDataList = getTop100Ranks();
+//
+//        // MySQL에서 데이터를 전부 삭제
+//        characterRankSqlRepository.deleteAll();
+//
+//        // Mysql에 다시 데이터 추가
+//        for (CharacterRanking characterRanking : redisRankingDataList) {
+//            CharacterRankingSql c = new CharacterRankingSql();
+//            c.setNickname(characterRanking.getNickname());
+//            c.setTotalScore(characterRanking.getTotalScore());
+//            c.setTotalGrade(characterRanking.getTotalGrade());
+//            characterRankSqlRepository.save(c);
+//
+//        }
+//    }
 
 }

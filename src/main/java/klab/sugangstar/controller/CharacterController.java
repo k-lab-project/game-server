@@ -23,19 +23,19 @@ public class CharacterController {
     // 캐릭터 주차별 업데이트
     @PutMapping("/update-character")
     public void updateCharacter(@RequestBody @Valid CharacterUpdateDto characterUpdateDto){
-        characterService.updateCharacter(characterUpdateDto);
+        characterService.updateWeekly(characterUpdateDto);
     }
 
     // 캐릭터 업데이트2, 시험 종료 시점
     @PutMapping("/update-character2")
     public void updateCharacter2(@RequestBody @Valid CharacterUpdateDto2 characterUpdateDto2){
-        characterService.updateCharacter2(characterUpdateDto2);
+        characterService.updateAfterSemesterEnd(characterUpdateDto2);
     }
 
     //캐릭터 업데이트. 새 학기 시작
     @PutMapping("/create-character3")
     public void updateCharacter3(@RequestBody @Valid CharacterCreateDto3 characterUpdateDto3){
-        characterService.updateCharacter3(characterUpdateDto3);
+        characterService.updateAtSemesterStart(characterUpdateDto3);
     }
 
     // 캐릭터 정보 제공
