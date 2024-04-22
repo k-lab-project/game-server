@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -24,24 +25,20 @@ public class SubjectRepository {
     // 과목 정보 랜덤 가져오기
     public List<SubjectProvideDto> findRandomSubjects(){
         List<SubjectProvideDto> subject = new ArrayList<>();
-        List<SubjectProvideDto> subject1 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
-                        "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
-                .setParameter("class_name","M")
-                .setMaxResults(14)
-                .getResultList();
-        List<SubjectProvideDto> subject2 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
-                        "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
-                .setParameter("class_name","G")
-                .setMaxResults(14)
-                .getResultList();
-        List<SubjectProvideDto> subject3 = em.createQuery("SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
-                        "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
-                .setParameter("class_name","N")
-                .setMaxResults(2)
-                .getResultList();
-        subject.addAll(subject1);
-        subject.addAll(subject2);
-        subject.addAll(subject3);
+
+        // 클래스 이름 리스트
+        List<String> classNames = Arrays.asList("M", "G", "N");
+
+        // 각 클래스 이름에 대해 쿼리 실행 및 결과 결합
+        for (String className : classNames) {
+            List<SubjectProvideDto> subjectsOfClass = em.createQuery(
+                            "SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
+                                    "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
+                    .setParameter("class_name", className)
+                    .setMaxResults(className.equals("N") ? 2 : 14) // 클래스 이름이 "N"이면 최대 결과 수를 2로 설정
+                    .getResultList();
+            subject.addAll(subjectsOfClass);
+        }
 
         return subject;
     }
