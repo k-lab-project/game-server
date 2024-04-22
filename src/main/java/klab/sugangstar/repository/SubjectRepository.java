@@ -54,9 +54,9 @@ public class SubjectRepository {
         if (subject != null) {
             // 엔티티 삭제
             em.remove(subject);
-        } else {
-            throw new EntityNotFoundException("Subject not found with ID: " + id);
+            return;
         }
+        throw new EntityNotFoundException("Subject not found with ID: " + id);
     }
 
 
