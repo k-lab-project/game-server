@@ -20,7 +20,7 @@ public class RankingController {
 
     @PostMapping("/update-ranking")
     public CharacterRanking updateRanking(@RequestBody @Valid CharacterRanking characterRanking){
-        rankingService.updateRanking(characterRanking);
+        rankingService.update(characterRanking);
         return characterRanking;
     }
 

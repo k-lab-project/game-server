@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +28,20 @@ public class RankingService {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void updateRanking(CharacterRanking characterRanking){
-//        rabbitTemplate.convertAndSend("ranking.exchange","ranking.key",characterRanking);
-        //characterRankRepository.deleteAll();
+//    public void updateRanking(CharacterRanking characterRanking){
+////        rabbitTemplate.convertAndSend("ranking.exchange","ranking.key",characterRanking);
+//        //characterRankRepository.deleteAll();
+//    }
+
+    public void update(CharacterRanking characterRanking){
+        List<CharacterRanking> currentRankings = characterRankRepository.findAll();
+        currentRankings.add(characterRanking);
+        currentRankings.sort(Collections.reverseOrder());
+        if (currentRankings.size() > 100) {
+            currentRankings.subList(100, currentRankings.size()).clear();
+        }
+        characterRankRepository.deleteAll();
+        characterRankRepository.saveAll(currentRankings);
     }
 
     public List<CharacterRanking> getTop100Ranks() {
