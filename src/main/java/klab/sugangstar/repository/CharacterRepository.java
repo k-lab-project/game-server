@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,14 +20,11 @@ public class CharacterRepository {
     }
 
     // 캐릭터 정보 제공
-    public GameCharacter findById(Long id){
-        //Character character = em.find(Character.class,id);
-        //System.out.println("character = " + character);
-        GameCharacter gameCharacter = em.createQuery("select c from GameCharacter c " +
-                "join fetch c.characterSubjects s join fetch c.user join fetch s.subject where c.id=:id", GameCharacter.class)
-                .setParameter("id",id)
+    public GameCharacter findById(Long id) throws NoResultException {
+        return em.createQuery("select c from GameCharacter c " +
+                        "join fetch c.characterSubjects s join fetch c.user join fetch s.subject where c.id=:id", GameCharacter.class)
+                .setParameter("id", id)
                 .getSingleResult();
-        return gameCharacter;
     }
 
     // 캐릭터 삭제

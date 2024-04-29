@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +38,11 @@ public class SubjectRepository {
                     .setParameter("class_name", className)
                     .setMaxResults(className.equals("N") ? 2 : 14) // 클래스 이름이 "N"이면 최대 결과 수를 2로 설정
                     .getResultList();
+
+            if (subjectsOfClass.isEmpty()) {
+                throw new NoResultException("No subjects found for class name: " + className);
+            }
+
             subject.addAll(subjectsOfClass);
         }
 
@@ -45,6 +51,9 @@ public class SubjectRepository {
     // 아이디로 해당 과목만 가져오기
     public Subject findById(Long id){
         Subject subject = em.find(Subject.class,id);
+        if (subject == null) {
+            throw new EntityNotFoundException("Subject with id " + id + " not found");
+        }
         return subject;
     }
 
