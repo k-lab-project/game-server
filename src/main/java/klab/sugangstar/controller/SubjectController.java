@@ -16,18 +16,18 @@ import java.util.List;
 public class SubjectController {
     private final SubjectService subjectService;
 
-    @PostMapping("/create-subject")
+    @PostMapping("/subjects")
     public void saveSubject(@RequestBody @Valid SubjectCreateDto request){
         subjectService.createSubject(request);
     }
 
-    @GetMapping("/")
+    @GetMapping("/subjects")
     public List<List<String>> provideSubject(){
         List<List<String>> s = subjectService.findRandom();
         return s;
     }
 
-    @DeleteMapping("/delete-subject/{id}")
+    @DeleteMapping("/subjects/{id}")
     public void deleteSubject(@PathVariable Long id){
         subjectService.deleteById(id);
         //return id+"가 정상적으로 삭제 되었습니다.";

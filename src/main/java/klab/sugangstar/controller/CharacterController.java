@@ -13,7 +13,7 @@ public class CharacterController {
     private final CharacterService characterService;
 
     // 캐릭터 생성
-    @PostMapping("/create-character")
+    @PostMapping("/characters")
     public void saveCharacter(@RequestBody @Valid CharacterCreateDto characterCreateDto){
         // 또 요청하면 아예 오류 뜨게 해서 validation 처리
         characterService.createCharacter(characterCreateDto);
@@ -21,25 +21,25 @@ public class CharacterController {
     }
 
     // 캐릭터 주차별 업데이트
-    @PutMapping("/update-character")
+    @PutMapping("/characters/weekly")
     public void updateCharacter(@RequestBody @Valid CharacterUpdateDto characterUpdateDto){
         characterService.updateWeekly(characterUpdateDto);
     }
 
     // 캐릭터 업데이트2, 시험 종료 시점
-    @PutMapping("/update-character2")
+    @PutMapping("/characters/end-of-semester")
     public void updateCharacter2(@RequestBody @Valid CharacterUpdateDto2 characterUpdateDto2){
         characterService.updateAfterSemesterEnd(characterUpdateDto2);
     }
 
     //캐릭터 업데이트. 새 학기 시작
-    @PutMapping("/create-character3")
+    @PutMapping(" /characters/start-of-semester")
     public void updateCharacter3(@RequestBody @Valid CharacterCreateDto3 characterUpdateDto3){
         characterService.updateAtSemesterStart(characterUpdateDto3);
     }
 
     // 캐릭터 정보 제공
-    @GetMapping("/character/{id}")
+    @GetMapping("/characters/{id}")
     public CharacterProvideDto provideCharacter(@PathVariable Long id){
         CharacterProvideDto character = characterService.provideCharacter(id);
         System.out.println("character = " + character);
@@ -47,7 +47,7 @@ public class CharacterController {
     }
 
     // 캐릭터 삭제
-    @DeleteMapping("/delete-character/{id}")
+    @DeleteMapping("/characters/{id}")
     public Long deleteCharacter(@PathVariable Long id){
         characterService.deleteCharacter(id);
         return id;

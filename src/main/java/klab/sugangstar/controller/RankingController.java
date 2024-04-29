@@ -18,7 +18,7 @@ import java.util.List;
 public class RankingController {
     private final RankingService rankingService;
 
-    @PostMapping("/update-ranking")
+    @PostMapping("/ranking")
     public CharacterRanking updateRanking(@RequestBody @Valid CharacterRanking characterRanking){
         rankingService.update(characterRanking);
         return characterRanking;
