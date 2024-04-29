@@ -4,19 +4,25 @@ import klab.sugangstar.domain.Subject;
 import klab.sugangstar.dto.SubjectCreateDto;
 import klab.sugangstar.dto.SubjectProvideDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
 public class SubjectRepository {
+
     private final EntityManager em;
+
+    Map<String, Integer> classNames = new HashMap<>(){{
+        put("M", 14);
+        put("G", 14);
+        put("N", 2);
+    }};
 
     // 저장
     public void save(Subject subject){
@@ -27,16 +33,17 @@ public class SubjectRepository {
     public List<SubjectProvideDto> findRandomSubjects(){
         List<SubjectProvideDto> subject = new ArrayList<>();
 
-        // 클래스 이름 리스트
-        List<String> classNames = Arrays.asList("M", "G", "N");
 
         // 각 클래스 이름에 대해 쿼리 실행 및 결과 결합
-        for (String className : classNames) {
+        for (Map.Entry<String, Integer> entry : classNames.entrySet()) {
+            String className = entry.getKey();
+            int maxResults = entry.getValue();
+
             List<SubjectProvideDto> subjectsOfClass = em.createQuery(
                             "SELECT new klab.sugangstar.dto.SubjectProvideDto(s.id,s.class_name, s.credit, s.korea_name, s.english_name, s.popularity, s.schedule_day, s.schedule_time, s.star, s.professor) " +
                                     "FROM Subject s WHERE s.class_name = :class_name ORDER BY RAND()", SubjectProvideDto.class)
                     .setParameter("class_name", className)
-                    .setMaxResults(className.equals("N") ? 2 : 14) // 클래스 이름이 "N"이면 최대 결과 수를 2로 설정
+                    .setMaxResults(maxResults)
                     .getResultList();
 
             if (subjectsOfClass.isEmpty()) {
