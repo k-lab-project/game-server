@@ -58,29 +58,81 @@ public class CharacterService {
 
     // 캐릭터 업데이트, 학기 중 업데이트, week , updateWeekly
     @Transactional
-    public void updateWeekly(WeeklyCharacterUpdateDto weeklyCharacterUpdateDto){
-        GameCharacter gameCharacter = characterRepository.findById(weeklyCharacterUpdateDto.getCharacterId());
-        gameCharacter.updateCharacter(weeklyCharacterUpdateDto);
+    public void updateWeekly(WeeklyCharacterUpdateDto dto){
+        GameCharacter gameCharacter = characterRepository.findById(dto.getCharacterId());
+
+        gameCharacter.setWeek(dto.getWeek());
+        gameCharacter.setStamina(dto.getStamina());
+        gameCharacter.setHealth(dto.getHealth());
+        gameCharacter.setDebuff(new Debuff(dto.getDebuff1(), dto.getDebuff2(), dto.getDebuff3()));
+
+        Status semesterStatus = gameCharacter.getStatus().get(gameCharacter.getSemester() - 1);
+        semesterStatus.setMemorization(dto.getMemorization());
+        semesterStatus.setConcentration(dto.getConcentration());
+        semesterStatus.setUnderstanding(dto.getUnderstanding());
+        semesterStatus.setMetacognition(dto.getMetacognition());
+        semesterStatus.setPatience(dto.getPatience());
+        semesterStatus.setCreativity(dto.getCreativity());
+
+        characterRepository.save(gameCharacter);
     }
 
     // 캐릭터 업데이트, 학기 종료 시, 시험 종료 시 updateAfterSemesterEnd
     @Transactional
-    public void updateAfterSemesterEnd(EndOfSemesterCharacterUpdateDto endOfSemesterCharacterUpdateDto){
-        GameCharacter gameCharacter = characterRepository.findById(endOfSemesterCharacterUpdateDto.getCharacterId());
-        gameCharacter.updateCharacter2(endOfSemesterCharacterUpdateDto);
+    public void updateAfterSemesterEnd(EndOfSemesterCharacterUpdateDto dto){
+        GameCharacter gameCharacter = characterRepository.findById(dto.getCharacterId());
+
+        gameCharacter.setWeek(dto.getWeek());
+        gameCharacter.setStamina(dto.getStamina());
+        gameCharacter.setHealth(dto.getHealth());
+        gameCharacter.setTotal_score(dto.getTotal_score());
+        gameCharacter.setDebuff(new Debuff(dto.getDebuff1(), dto.getDebuff2(), dto.getDebuff3()));
+
+        Status semesterStatus = gameCharacter.getStatus().get(gameCharacter.getSemester() - 1);
+        semesterStatus.setMemorization(dto.getMemorization());
+        semesterStatus.setConcentration(dto.getConcentration());
+        semesterStatus.setUnderstanding(dto.getUnderstanding());
+        semesterStatus.setMetacognition(dto.getMetacognition());
+        semesterStatus.setPatience(dto.getPatience());
+        semesterStatus.setCreativity(dto.getCreativity());
+
+        List<CharacterSubject> characterSubjects = gameCharacter.getCharacterSubjects();
+        int i = 0;
+        for (CharacterSubject characterSubject : characterSubjects) {
+            if (characterSubject.getSemester() == gameCharacter.getSemester()) {
+                characterSubject.setScore(dto.getSubjectScore().get(i));
+                i++;
+            }
+        }
     }
+
 
     //캐릭터 업데이트. 새 학기 시작 updateAtSemesterStart
     @Transactional
     public void updateAtSemesterStart(StartOfSemesterCharacterUpdateDto startOfSemesterCharacterUpdateDto){
         GameCharacter gameCharacter = characterRepository.findById(startOfSemesterCharacterUpdateDto.getCharacterId());
+
+        gameCharacter.setSemester(2);
+        Status semesterStatus = gameCharacter.getStatus().get(1);
+        semesterStatus.setMemorization(startOfSemesterCharacterUpdateDto.getMemorization());
+        semesterStatus.setConcentration(startOfSemesterCharacterUpdateDto.getConcentration());
+        semesterStatus.setUnderstanding(startOfSemesterCharacterUpdateDto.getUnderstanding());
+        semesterStatus.setMetacognition(startOfSemesterCharacterUpdateDto.getMetacognition());
+        semesterStatus.setPatience(startOfSemesterCharacterUpdateDto.getPatience());
+        semesterStatus.setCreativity(startOfSemesterCharacterUpdateDto.getCreativity());
+
         List<CharacterSubject> characterSubjects = new ArrayList<>();
         for (Long subjectId : startOfSemesterCharacterUpdateDto.getSubjectIds()) {
             Subject subject = subjectRepository.findById(subjectId);
-            CharacterSubject characterSubject = CharacterSubject.createCharacterSubject(subject,2);
+            CharacterSubject characterSubject = CharacterSubject.createCharacterSubject(subject, 2);
             characterSubjects.add(characterSubject);
         }
-        gameCharacter.updateCharacter3(startOfSemesterCharacterUpdateDto,characterSubjects);
+        gameCharacter.setCharacterSubjects(characterSubjects);
+        gameCharacter.setDebuff(new Debuff(0, 0, 0));
+        gameCharacter.setStamina(100);
+        gameCharacter.setHealth(4);
+        gameCharacter.setWeek(1);
+        gameCharacter.setTotal_score(0);
     }
 
 

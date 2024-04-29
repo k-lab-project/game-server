@@ -1,6 +1,13 @@
 package klab.sugangstar.dto.characterDTO;
 
+
+import klab.sugangstar.domain.Debuff;
+import klab.sugangstar.domain.GameCharacter;
+import klab.sugangstar.domain.Status;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 // 주차 업데이트
 @Data
 public class WeeklyCharacterUpdateDto {
