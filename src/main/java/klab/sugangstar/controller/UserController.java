@@ -15,13 +15,13 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/user")
+    @PostMapping("/signup")
     public void signUp(@RequestBody @Valid User user){
         userService.createUser(user);
         //return user;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/login")
     public Map<String, Long> login(@RequestBody @Valid User user){
         return userService.checkUser(user);
     }
