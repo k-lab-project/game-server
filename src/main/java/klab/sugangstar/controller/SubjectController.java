@@ -22,7 +22,7 @@ public class SubjectController {
     }
 
     @GetMapping("/subjects")
-    public List<List<String>> provideSubject(){
+    public List<List<String>> getSubjects(){
         List<List<String>> s = subjectService.findRandom();
         return s;
     }

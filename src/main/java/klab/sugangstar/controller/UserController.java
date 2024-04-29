@@ -16,13 +16,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/user")
-    public void saveUser(@RequestBody @Valid User user){
+    public void signUp(@RequestBody @Valid User user){
         userService.createUser(user);
         //return user;
     }
 
     @PostMapping("/user")
-    public Map<String, Long> checkUser(@RequestBody @Valid User user){
+    public Map<String, Long> login(@RequestBody @Valid User user){
         return userService.checkUser(user);
     }
 }
