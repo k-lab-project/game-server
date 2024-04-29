@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CharacterUpdateDto2 {
+public class EndOfSemesterCharacterUpdateDto {
     private Long characterId;
     private int week;
     private int stamina;

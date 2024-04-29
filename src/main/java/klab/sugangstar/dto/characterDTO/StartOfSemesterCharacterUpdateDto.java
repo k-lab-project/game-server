@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CharacterCreateDto3 {
+public class StartOfSemesterCharacterUpdateDto {
     private Long characterId;
     private float memorization;
     private float concentration;

@@ -1,16 +1,15 @@
 package klab.sugangstar.dto.characterDTO;
 
-import klab.sugangstar.domain.CharacterSubject;
-import klab.sugangstar.domain.Debuff;
-import klab.sugangstar.domain.Status;
-import klab.sugangstar.domain.Subject;
+import klab.sugangstar.domain.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class CharacterProvideDto {
     private Long characterId;
     private int week;
@@ -23,4 +22,9 @@ public class CharacterProvideDto {
     private Debuff debuff;
     private Status status;
     private List<CharacterSubject> subjects;
+
+    // 정적 팩토리 메서드로 dto 생성
+    public CharacterProvideDto toDto(GameCharacter gameCharacter){
+        return CharacterProvideDto.builder().build();
+    }
 }

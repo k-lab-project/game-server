@@ -3,7 +3,7 @@ package klab.sugangstar.dto.characterDTO;
 import lombok.Data;
 // 주차 업데이트
 @Data
-public class CharacterUpdateDto {
+public class WeeklyCharacterUpdateDto {
     private Long characterId;
     private int week;
     private int stamina;
