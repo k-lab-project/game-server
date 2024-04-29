@@ -58,29 +58,29 @@ public class CharacterService {
 
     // 캐릭터 업데이트, 학기 중 업데이트, week , updateWeekly
     @Transactional
-    public void updateWeekly(CharacterUpdateDto characterUpdateDto){
-        GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto.getCharacterId());
-        gameCharacter.updateCharacter(characterUpdateDto);
+    public void updateWeekly(WeeklyCharacterUpdateDto weeklyCharacterUpdateDto){
+        GameCharacter gameCharacter = characterRepository.findById(weeklyCharacterUpdateDto.getCharacterId());
+        gameCharacter.updateCharacter(weeklyCharacterUpdateDto);
     }
 
     // 캐릭터 업데이트, 학기 종료 시, 시험 종료 시 updateAfterSemesterEnd
     @Transactional
-    public void updateAfterSemesterEnd(CharacterUpdateDto2 characterUpdateDto2){
-        GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto2.getCharacterId());
-        gameCharacter.updateCharacter2(characterUpdateDto2);
+    public void updateAfterSemesterEnd(EndOfSemesterCharacterUpdateDto endOfSemesterCharacterUpdateDto){
+        GameCharacter gameCharacter = characterRepository.findById(endOfSemesterCharacterUpdateDto.getCharacterId());
+        gameCharacter.updateCharacter2(endOfSemesterCharacterUpdateDto);
     }
 
     //캐릭터 업데이트. 새 학기 시작 updateAtSemesterStart
     @Transactional
-    public void updateAtSemesterStart(CharacterCreateDto3 characterUpdateDto3){
-        GameCharacter gameCharacter = characterRepository.findById(characterUpdateDto3.getCharacterId());
+    public void updateAtSemesterStart(StartOfSemesterCharacterUpdateDto startOfSemesterCharacterUpdateDto){
+        GameCharacter gameCharacter = characterRepository.findById(startOfSemesterCharacterUpdateDto.getCharacterId());
         List<CharacterSubject> characterSubjects = new ArrayList<>();
-        for (Long subjectId : characterUpdateDto3.getSubjectIds()) {
+        for (Long subjectId : startOfSemesterCharacterUpdateDto.getSubjectIds()) {
             Subject subject = subjectRepository.findById(subjectId);
             CharacterSubject characterSubject = CharacterSubject.createCharacterSubject(subject,2);
             characterSubjects.add(characterSubject);
         }
-        gameCharacter.updateCharacter3(characterUpdateDto3,characterSubjects);
+        gameCharacter.updateCharacter3(startOfSemesterCharacterUpdateDto,characterSubjects);
     }
 
 
