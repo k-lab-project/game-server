@@ -94,9 +94,19 @@ public class CharacterService {
             }
 
         }
-        CharacterProvideDto characterProvideDto = new CharacterProvideDto(gameCharacter.getId(), gameCharacter.getWeek(), gameCharacter.getStamina()
-        , gameCharacter.getHealth(), gameCharacter.getSemester(),gameCharacter.getTotal_score(),gameCharacter.getNickName(),gameCharacter.getGender(),gameCharacter.getDebuff()
-                , gameCharacter.getStatus().get(gameCharacter.getSemester()-1), subjects);
+        CharacterProvideDto characterProvideDto = CharacterProvideDto.builder()
+                .characterId(gameCharacter.getId())
+                .week(gameCharacter.getWeek())
+                .stamina(gameCharacter.getStamina())
+                .health(gameCharacter.getHealth())
+                .semester(gameCharacter.getSemester())
+                .total_score(gameCharacter.getTotal_score())
+                .nickName(gameCharacter.getNickName())
+                .gender(gameCharacter.getGender())
+                .debuff(gameCharacter.getDebuff())
+                .status(gameCharacter.getStatus().get(gameCharacter.getSemester()-1))
+                .subjects(subjects)
+                .build();
         return characterProvideDto;
     }
 

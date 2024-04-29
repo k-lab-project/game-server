@@ -29,10 +29,11 @@ public class RankingService {
     }
 
 //    public void updateRanking(CharacterRanking characterRanking){
-////        rabbitTemplate.convertAndSend("ranking.exchange","ranking.key",characterRanking);
-//        //characterRankRepository.deleteAll();
+//        rabbitTemplate.convertAndSend("ranking.exchange","ranking.key",characterRanking);
+//        characterRankRepository.deleteAll();
 //    }
 
+    @Transactional
     public void update(CharacterRanking characterRanking){
         List<CharacterRanking> currentRankings = characterRankRepository.findAll();
         currentRankings.add(characterRanking);
