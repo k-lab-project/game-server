@@ -33,7 +33,7 @@ public class RequestLoggingAspect {
         if (attributes != null) {
             HttpServletRequest request = attributes.getRequest();
             String clientIp = request.getRemoteAddr();
-            String requestUrl = request.getRequestURL().toString();
+            String requestUrl = getRequestUrlWithQueryString(request);
             String userId = "user123"; // 사용자 ID를 얻는 방법은 구현되어 있지 않으므로 예시로 user123을 사용
             String requestMethod = request.getMethod();
             String requestParams = request.getQueryString();
@@ -64,6 +64,16 @@ public class RequestLoggingAspect {
 
         // 읽어온 JSON 데이터 반환
         return requestBodyBuilder.toString();
+    }
+
+    private String getRequestUrlWithQueryString(HttpServletRequest request) {
+        // 요청 URL과 쿼리 스트링을 합쳐서 반환
+        StringBuilder requestUrlWithQueryString = new StringBuilder(request.getRequestURL().toString());
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+            requestUrlWithQueryString.append('?').append(queryString);
+        }
+        return requestUrlWithQueryString.toString();
     }
 
     @AfterReturning(pointcut = "execution(* klab.sugangstar.controller.*.*(..))", returning = "result")

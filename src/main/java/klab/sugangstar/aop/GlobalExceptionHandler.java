@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public void handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
+    @ExceptionHandler(Exception.class)
+    public void handleException(Exception ex, HttpServletRequest request) {
         // IP 주소 가져오기
         String clientIp = request.getRemoteAddr();
 
@@ -22,6 +22,6 @@ public class GlobalExceptionHandler {
         String requestMethod = request.getMethod();
 
         // 로그 출력
-        log.warn("Client IP: " + clientIp + ", Request URL: " + requestUrl + ", Request Method: " + requestMethod + ", Warning: " + ex.getMessage());
+        log.error("예외 발생 - Client IP: {}, Request URL: {}, Request Method: {}, Error: {}", clientIp, requestUrl, requestMethod, ex.getMessage(), ex);
     }
 }
